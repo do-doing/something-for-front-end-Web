@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<style>
+  div.box {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+
+  select {
+    width: 200px;
+    height: 50px;
+  }
+</style>
+
+<body>
+  <div class="box">
+    <h4 id="tips"></h4>
+    <select id="changeBg">
+      <option value="white">请选择(white)</option>
+      <option value="wheat">wheat</option>    
+      <option value="aquamarine">aquamarine</option>
+      <option value="yellowgreen">yellowgreen</option>
+      <option value="orangered">orangered</option>
+      <option value="greenyellow">greenyellow</option>
+  </select>
+  </div>
+</body>
+<script>
+  var oSelect = document.querySelector('#changeBg');
+  oSelect.onchange = function () {
+    var bg = this.value;
+    document.body.style.backgroundColor = bg;
+
+    //把bg数值保存到 localstorage 里
+    window.localStorage.setItem('bg', bg);
+  }
+
+  //页面打开时,拿到 localstorage 里的bg ,更改
+  var background = window.localStorage.getItem('bg');
+  var oTips = document.querySelector('#tips');
+  if (background) {
+    document.body.style.backgroundColor = background;
+    oTips.innerHTML = '你上次选择了' + background + ',给你记住了,再试试?';
+  } else {
+    oTips.innerHTML = '你应该是第一次访问吧,选择一个颜色关闭页面再打开看看?';
+  }
+
+  for(var i=0;i< oSelect.options.length;i++){
+    if(oSelect.options[i].value == background){
+      oSelect.options[i].selected = true; 
+    }
+  }
+
+</script>
+
+</html>
